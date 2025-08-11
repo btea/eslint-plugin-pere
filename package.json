@@ -31,6 +31,7 @@
   "author": "btea <2356281422@qq.com>",
   "license": "MIT",
   "devDependencies": {
+    "@types/estree": "^1.0.8",
     "eslint": "^9.32.0",
     "tsdown": "^0.13.3",
     "typescript": "^5.9.2"
