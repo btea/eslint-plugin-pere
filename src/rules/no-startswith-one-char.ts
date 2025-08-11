@@ -8,28 +8,35 @@ const rule: Rule.RuleModule = {
 			recommended: true,
 		},
 		schema: [],
+    fixable: 'code',
 	},
 	create(context) {
 		return {
 			CallExpression(node) {
-        const isLiternal = () => node.callee.object.type === 'Literal' || node.callee.object.type === 'TemplateLiteral' || node.callee.object.type === 'Identifier'
-        const isMemberExpression = () => node.callee.object.type === 'MemberExpression'
-				if (node.callee.type === 'MemberExpression' &&
-					node.callee.property.name === 'startsWith' &&
+        const callee = node.callee as any
+
+        const isLiternal = () => callee.object.type === 'Literal' || callee.object.type === 'TemplateLiteral' || callee.object.type === 'Identifier'
+
+        const isMemberExpression = () => callee.object.type === 'MemberExpression'
+
+        if (callee.type === 'MemberExpression' &&
+					callee.property.name === 'startsWith' &&
 					(isLiternal() || isMemberExpression()) &&
 					node.arguments[0].type === 'Literal' &&
 					String(node.arguments[0].value)?.length === 1) {
 						context.report({
               node,
-              message: 'Using `startsWith` with a single character is not allowed.',
+              message: 'Using `startsWith` with a single character is not allowed. Use `===` instead.',
               fix: fixer => {
-                if (isLiternal() || node.callee.object.type === 'Identifier') {
-                  return fixer.replaceText(node, `${node.callee.object.raw}[0] === "${node.arguments[0].value}"`)
+                // @ts-expect-error
+                const raw = node.arguments[0].raw
+                const sourceCode = context.sourceCode ?? context.getSourceCode()
+                const objectText = sourceCode.getText(callee.object)
+                if (isLiternal()) {
+                  return fixer.replaceText(node, `${objectText}[0] === ${raw}`)
                 }
                 if (isMemberExpression()) {
-                  if (node.callee.object.object) {
-                    return fixer.replaceText(node, `${node.callee.object.object.name}[${node.callee.object.property.name}][0] === "${node.arguments[0].value}"`)
-                  }
+                  return fixer.replaceText(node, `${objectText} === ${raw}`)
                 }
                 return null
               }

@@ -48,9 +48,6 @@ const rule: Rule.RuleModule = {
           }
         }
       },
-      MemberExpression(node) {
-
-      },
     };
 	}
 }

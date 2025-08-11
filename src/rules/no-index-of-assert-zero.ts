@@ -15,9 +15,10 @@ const rule: Rule.RuleModule = {
         if (node.operator === '===' &&
             node.left.type === 'CallExpression' &&
             node.left.callee.type === 'MemberExpression' &&
+            node.left.callee.property.type === 'Identifier' &&
             node.left.callee.property.name === 'indexOf' &&
-            node.callee.right.type === 'Literal' &&
-            node.callee.right.value === 0) {
+            node.right.type === 'Literal' &&
+            node.right.value === 0) {
           context.report({
             node,
             message: 'Using `indexOf` to find the first element is not allowed.',
