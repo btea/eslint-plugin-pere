@@ -2,7 +2,7 @@ import type { ESLint } from 'eslint'
 import { version } from '../package.json'
 import noStartswithOneChar from './rules/no-startswith-one-char'
 import duplicateConstructor from './rules/duplicate-constructor'
-import noIndexOfAssertZero from './rules/no-index-of-assert-zero'
+import noIndexOfMatchZero from './rules/no-indexof-match-zero'
 
 const plugin = {
   meta: {
@@ -12,7 +12,7 @@ const plugin = {
 	rules: {
 		'no-startswith-one-char': noStartswithOneChar,
 		'duplicate-constructor': duplicateConstructor,
-		'no-index-of-assert-zero': noIndexOfAssertZero,
+		'no-indexof-match-zero': noIndexOfMatchZero,
 	},
 } satisfies ESLint.Plugin
 
