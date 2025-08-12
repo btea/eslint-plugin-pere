@@ -6,6 +6,9 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "module": "dist/index.mjs",
+  "files": [
+    "dist"
+  ],
   "exports": {
     ".": {
       "import": {
@@ -21,13 +24,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/btea/eslint-plugin-pere.git"
+    "url": "git+https://github.com/btea/eslint-plugin-pere.git"
   },
   "scripts": {
     "build": "tsdown",
     "watch": "tsdown --watch"
   },
-  "keywords": [],
+  "keywords": ["eslint", "plugin", "performance"],
   "author": "btea <2356281422@qq.com>",
   "license": "MIT",
   "devDependencies": {
