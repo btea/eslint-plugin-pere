@@ -2,6 +2,13 @@
   "name": "eslint-plugin-pere",
   "version": "0.0.1",
   "packageManager": "pnpm@10.14.0",
+  "devEngines": {
+    "runtime": {
+      "name": "node",
+      "version": "22.12.0",
+      "onFail": "download"
+    }
+  },
   "description": "eslint plugin for pereformance enhancements",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -28,16 +35,27 @@
   },
   "scripts": {
     "build": "tsdown",
-    "watch": "tsdown --watch"
+    "watch": "tsdown --watch",
+    "test": "vitest",
+    "test:watch": "vitest --watch",
+    "test:coverage": "vitest --coverage",
+    "test:ui": "vitest --ui"
   },
-  "keywords": ["eslint", "plugin", "performance"],
+  "keywords": [
+    "eslint",
+    "plugin",
+    "performance"
+  ],
   "author": "btea <2356281422@qq.com>",
   "license": "MIT",
   "devDependencies": {
+    "@eslint/eslintrc": "^3.3.1",
     "@types/estree": "^1.0.8",
     "eslint": "^9.32.0",
+    "eslint-rule-tester": "^2.0.0",
     "tsdown": "^0.13.3",
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.2",
+    "vitest": "^3.2.4"
   },
   "peerDependencies": {
     "eslint": "*"
